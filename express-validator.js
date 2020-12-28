@@ -12,7 +12,7 @@ module.exports = {
     body('maxNum')
       .isInt({ gt: 0 })
       .custom((value, { req }) => {
-        if (value < req.body.minNum) {
+        if (Number(value) < Number(req.body.minNum)) {
           throw new Error('Max number of people should be greater than min number of people')
         }
         return true
