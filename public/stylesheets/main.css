@@ -1,9 +1,13 @@
-:root{
-  --navbar: #505050;                      /* gray */
-  --groupspanel: rgba(216, 242, 252, 0.6);    /* blue */
-  --groupspanelhead: #6c208d;             /* purple */
+:root {
+  --navbar: #505050;
+  /* gray */
+  --groupspanel: rgba(216, 242, 252, 0.6);
+  /* blue */
+  --groupspanelhead: #6c208d;
+  /* purple */
   --logo_color: white;
-  --logo_shadow: #31fffa; /* rgba(49, 243, 242) */
+  --logo_shadow: #31fffa;
+  /* rgba(49, 243, 242) */
   --logo_hover: white;
   --logo_hover_shadow: #f79102;
 
@@ -17,7 +21,7 @@ body {
   background: url('https://github.com/angel870326/BuyTogether/blob/main/img/Cute%20Christmas%20Cards%20Collection%20by%20Slidesgo.png?raw=true');
   background-position: center;
   background-size: cover;
-  height: 110vh;
+  /* height: 110vh; */
   z-index: -2;
 }
 
@@ -38,6 +42,7 @@ div.overlay {
   font-size: 30px;
   text-shadow: 2px 2px 1px var(--logo_shadow);
 }
+
 .logo:hover {
   text-decoration: none;
   color: var(--logo_hover);
@@ -54,7 +59,7 @@ nav .new-task-btn {
 }
 
 nav .new-task-btn:hover {
-  text-shadow: 1px 1px 2px white;  
+  text-shadow: 1px 1px 2px white;
 }
 
 /* Login now or Logout */
@@ -64,6 +69,7 @@ nav .log-out-btn {
   text-decoration: none;
   color: var(--navbar);
 }
+
 nav .log-out-btn:hover {
   text-shadow: 1px 1px 2px white;
 }
@@ -84,5 +90,3 @@ section#display-container {
 #display-panel h3 {
   color: var(--groupspanelhead);
 }
-
-
