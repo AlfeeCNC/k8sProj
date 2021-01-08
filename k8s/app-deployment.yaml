@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.22.0 (HEAD)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: app
+  name: app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: app
+  strategy: {}
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert
+        kompose.version: 1.22.0 (HEAD)
+      creationTimestamp: null
+      labels:
+        io.kompose.network/app-server-network: "true"
+        io.kompose.service: app
+    spec:
+      containers:
+        - args:
+            - bash
+            - -c
+            - while !</dev/tcp/db/3306; do sleep 1; done; npm start
+          env:
+            - name: DB_DATABASE
+              value: group_buying
+            - name: DB_HOSTNAME
+              value: mysql
+            - name: DB_PASSWORD
+              value: root
+            - name: DB_USERNAME
+              value: root
+            - name: NODE_ENV
+              value: development
+            - name: PORT
+              value: "3000"
+          image: registry.hub.docker.com/ceh12/k8s-nodejs-proj
+          name: app
+          ports:
+            - containerPort: 3000
+          resources: {}
+          workingDir: /usr/src/app
+      restartPolicy: Always
+status: {}

@@ -1,0 +1,47 @@
+version: '3.7'
+services:
+  mysql:
+    image: mysql:5.7
+    environment:
+      MYSQL_DATABASE: 'group_buying'
+      MYSQL_USER: "root"
+      MYSQL_PASSWORD: "root"
+      MYSQL_ROOT_PASSWORD: "root"
+    ports:
+      - '3306:3306'
+    volumes:
+      - my-db:/var/lib/mysql
+    command: ['mysqld', '--character-set-server=utf8']
+    networks:
+      - app-server-network     
+
+  app:
+    depends_on:
+      - mysql
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: registry.hub.docker.com/ceh12/k8s-nodejs-proj
+    ports:
+      - 3000:3000
+    command: bash -c 'while !</dev/tcp/db/8889; do sleep 1; done; npm start'
+    environment:
+      NODE_ENV: development
+      PORT: 3000
+      DB_USERNAME: "root"
+      DB_PASSWORD: "root"
+      DB_DATABASE: 'group_buying'
+      DB_HOSTNAME: 'mysql'
+    working_dir: /usr/src/app
+    links:
+      - mysql
+    networks:
+      - app-server-network
+
+# Names our volume
+volumes:
+  my-db:
+
+networks:
+  app-server-network:
+    driver: bridge
